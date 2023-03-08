@@ -13,7 +13,6 @@ function ManufacturerForm() {
         event.preventDefault();
         const data = {};
         data.name = name;
-        console.log(data);
 
         const url = "http://localhost:8100/api/manufacturers/";
         const fetchConfig = {
@@ -26,7 +25,6 @@ function ManufacturerForm() {
         const response = await fetch(url, fetchConfig);
         if (response.ok) {
             const newTech = await response.json();
-            console.log(newTech)
             setName('');
         }
     }
