@@ -1,5 +1,4 @@
 import { React, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
 
 function TechnicianForm() {
 
@@ -37,10 +36,7 @@ function TechnicianForm() {
             setName('');
             setEmployeeId('');
         }
-        navigate('/technicians', {replace: true});
     }
-
-    const navigate = useNavigate();
 
     return (
         <div className="row">

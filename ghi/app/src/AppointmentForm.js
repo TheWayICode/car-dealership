@@ -1,6 +1,4 @@
 import { React, useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
-
 
 function AppointmentForm() {
     const [vins, setVins] = useState([]);
@@ -60,7 +58,6 @@ function AppointmentForm() {
             setReason('');
             setTechnician('');
         }
-        navigate('/appointments', {replace: true});
     }
 
 
@@ -86,9 +83,6 @@ function AppointmentForm() {
     useEffect(() => {
         fetchServiceAutoData();
         }, []);
-
-    const navigate = useNavigate();
-
 
     return (
         <div className="row">
