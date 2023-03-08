@@ -1,5 +1,5 @@
 from django.db import models
-
+from datetime import datetime, date
 
 # Create your models here.
 class AutomobileVO(models.Model):
@@ -21,7 +21,7 @@ class Appointment(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=150)
-    appointment_time = models.CharField(max_length=150, null=True)
+    date_time = models.DateTimeField(auto_now_add=False, null=True)
     reason = models.TextField(max_length=250)
     technician = models.ForeignKey(
         Technician,

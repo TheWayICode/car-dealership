@@ -5,9 +5,9 @@ from django.http import JsonResponse
 import json
 
 # Create your views here.
-class AutomobileVO(ModelEncoder):
+class AutomobileEncoder(ModelEncoder):
     model = AutomobileVO
-    properties = ["vin"]
+    properties = ["id", "vin"]
 
 
 class TechnicianEncoder(ModelEncoder):
@@ -20,7 +20,7 @@ class AppointmentEncoder(ModelEncoder):
     properties = [
         "vin",
         "name",
-        "appointment_time",
+        "date_time",
         "reason",
         "technician",
         "vip",
@@ -28,6 +28,7 @@ class AppointmentEncoder(ModelEncoder):
         "id",
     ]
     encoders = {
+        "vin": AutomobileEncoder(),
         "technician": TechnicianEncoder(),
     }
 
@@ -89,25 +90,23 @@ def api_list_appointment(request):
     if request.method == "GET":
         appointments = Appointment.objects.all()
         return JsonResponse(
-            {"appointment": appointments},
+            {"appointments": appointments},
             encoder=AppointmentEncoder,
         )
     else:
         content = json.loads(request.body)
         technician = Technician.objects.get(id=content["technician"])
-        content["technician"]=technician
+        content["technician"] = technician
 
         automobilevo = AutomobileVO.objects.get_or_create(vin=content["vin"])
         content["vin"] = automobilevo[0]
 
         appointment = Appointment.objects.create(**content)
         return JsonResponse(
-            appointment,
+            {"appointment": appointment},
             encoder=AppointmentEncoder,
             safe=False,
         )
-
-
 
 
 @require_http_methods(["GET", "DELETE"])
@@ -135,3 +134,23 @@ def api_show_service(request, id):
             )
         except Appointment.DoesNotExist:
             return JsonResponse({"message": "Does not exist"})
+
+
+@require_http_methods(["GET"])
+def api_list_automobiles(request):
+    if request.method == "GET":
+        automobiles = AutomobileVO.objects.all()
+        return JsonResponse(
+            {"automobiles": automobiles},
+            encoder=AutomobileEncoder,
+        )
+    else:
+        content = json.loads(request.body)
+        autos = AutomobileVO.objects.get(id=content["autos"])
+        content["autos"] = autos
+        automobile = AutomobileVO.objects.create(**content)
+        return JsonResponse(
+            {"automobiles": automobile},
+            encoder=AutomobileEncoder,
+            safe=False,
+        )
