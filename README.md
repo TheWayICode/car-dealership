@@ -6,8 +6,9 @@ Team:
 * Person 2 - Which microservice? Auto Sales - Farzan
 
 ## Design
-ProjectBetaLayout.png
 
+ProjectBetaLayout.png
+![Semantic description of image](ProjectBetaLayout.png)
 # Project CarCar
 
 The Car Dealership Web Application is a comprehensive platform designed to simplify the management of automobile dealerships.
@@ -622,3 +623,10 @@ Overall, the integration of the Auto Sales microservice with the Car Dealership 
 ```
 
 ![App Screenshot](https://s3.us-west-2.amazonaws.com/forge-production.galvanize.com/content/25d9b9d830130494f71a402d2ad46d3b.png)
+
+
+## Tech Stack
+
+**Client:** React, Bootstrap
+
+**Server:** Django, SQLite
