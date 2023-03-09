@@ -9,7 +9,9 @@ class AutomobileVOEncoder(ModelEncoder):
         "id",
         "color",
         "vin",
-        "import_href"
+        "import_href",
+        "sold",
+        "year",
     ]
 
 
@@ -48,4 +50,9 @@ class SalesRecordEncoder(ModelEncoder):
     }
 
     def get_extra_data(self, o):
-        return {"id": o.id}
+        return {
+            "automobile": o.automobile.vin,
+            
+            "customer": o.customer.name,
+            "id": o.id
+        }

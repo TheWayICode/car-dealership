@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class AutomobileVO(models.Model):
@@ -6,6 +7,7 @@ class AutomobileVO(models.Model):
     year = models.PositiveSmallIntegerField()
     vin = models.CharField(max_length=17, unique=True)
     import_href = models.CharField(max_length=200, unique=True, null=True)
+    sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.vin
@@ -42,3 +44,9 @@ class SalesRecord(models.Model):
         related_name="sales_record",
         on_delete=models.DO_NOTHING,
     )
+
+    def get_api_url(self):
+        return reverse("api_detail_sales", kwargs={"pk": self.pk})
+
+    def __str__(self):
+        return f"{self.salesperson} {self.customer} {self.automobile}"

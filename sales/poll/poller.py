@@ -12,25 +12,32 @@ django.setup()
 # Import models from sales_rest, here.
 # from sales_rest.models import Something
 
-def AutomobileVO():
+from sales_rest.models import AutomobileVO
+
+
+def get_auto():
     response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
     print(content)
-    for automobile in content["automobiles"]:
+    for automobile in content["autos"]:
         AutomobileVO.objects.update_or_create(
-            import_href=bin["href"],
-            defaults={
-            "color": automobile["color"],
-            "year": automobile["year"],
-            "vin": automobile["vin"],
-            }
+            import_href=automobile["href"],
+            defaults = {
+                "color": automobile["color"],
+                "year": automobile["year"],
+                "vin": automobile["vin"],
+            },
         )
+
+
+
 
 def poll():
     while True:
-        print('Shoes poller polling for data')
+        print('Sales poller polling for data')
         try:
-            AutomobileVO()
+            # Write your polling logic, here
+            get_auto()
         except Exception as e:
             print(e, file=sys.stderr)
         time.sleep(60)
