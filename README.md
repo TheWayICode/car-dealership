@@ -6,8 +6,7 @@ Team:
 * Person 2 - Which microservice? Auto Sales - Farzan
 
 ## Design
-[![Project Design](Images\ProjectBetaLayout.png)]
-image.png
+
 
 # Project CarCar
 
