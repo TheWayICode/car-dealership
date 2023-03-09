@@ -7,8 +7,8 @@ Team:
 
 ## Design
 
-ProjectBetaLayout.png
 ![Semantic description of image](ProjectBetaLayout.png)
+
 # Project CarCar
 
 The Car Dealership Web Application is a comprehensive platform designed to simplify the management of automobile dealerships.
