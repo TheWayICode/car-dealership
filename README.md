@@ -7,6 +7,7 @@ Team:
 
 ## Design
 
+![Semantic description of image](ProjectBetaLayout.png)
 
 # Project CarCar
 
@@ -622,3 +623,10 @@ Overall, the integration of the Auto Sales microservice with the Car Dealership 
 ```
 
 ![App Screenshot](https://s3.us-west-2.amazonaws.com/forge-production.galvanize.com/content/25d9b9d830130494f71a402d2ad46d3b.png)
+
+
+## Tech Stack
+
+**Client:** React, Bootstrap
+
+**Server:** Django, SQLite
