@@ -7,6 +7,7 @@ Team:
 
 ## Design
 [![Project Design](Images\ProjectBetaLayout.png)]
+image.png
 
 # Project CarCar
 
