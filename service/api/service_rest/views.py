@@ -33,7 +33,7 @@ class AppointmentEncoder(ModelEncoder):
     }
 
 
-require_http_methods(["GET", "POST"])
+@require_http_methods(["GET", "POST"])
 def api_list_technicians(request):
     if request.method == "GET":
         technicians = Technician.objects.all()

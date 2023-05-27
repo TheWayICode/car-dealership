@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
 function ServiceHistory() {
-
     const [appointments, setAppointments] = useState([]);
     const [search, setSearch] = useState('')
 
     const handleSearchChange = (event) => {
         setSearch(event.target.value);
     }
-
     const fetchData = async () => {
       const url = 'http://localhost:8080/api/appointments/';
       const response = await fetch(url);
@@ -17,19 +15,17 @@ function ServiceHistory() {
         setAppointments(data.appointments)
       }
     }
-
     useEffect(() => {
         fetchData()
     }, []);
 
     return (
-        <div>
-            <h3 className="mb-3">Service History</h3>
-            <div className="input-group">
-                <input onChange={handleSearchChange} value={search} type="search" className="form-control rounded" placeholder="Search VIN Number" aria-label="Search" aria-describedby="search-addon" />
+        <div className='text-center'>
+            <h3 className="pt-16 pb-4 text-center text-2xl font-bold">Service History</h3>
+            <div className="px-8 input-group pb-8">
+                <input onChange={handleSearchChange} value={search} type="search" className="form-control rounded" placeholder="Search VIN number" aria-label="Search" aria-describedby="search-addon" />
                 <button type="button" className="btn btn-outline-primary">Search</button>
             </div>
-            <br/>
             <table className="table table-striped">
                 <thead>
                     <tr>

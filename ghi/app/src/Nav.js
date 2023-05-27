@@ -1,76 +1,246 @@
-import { NavLink } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { FaHome } from "react-icons/fa";
+import { BiCar } from "react-icons/bi";
+import { AiOutlineSchedule, AiOutlineDollarCircle, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 
 function Nav() {
+  const [nav, setNav] = useState(false);
+  const [firstDropdownVisible, setfirstDropdownVisible] = useState(false);
+  const [secondDropdownVisible, setsecondDropdownVisible] = useState(false);
+  const [appointmentDropdownVisible, setAppointmentDropdownVisible] = useState(false);
+  const firstDropdownRef = useRef(null);
+  const secondDropdownRef = useRef(null);
+  const appointmentDropdownRef = useRef(null);
+
+  const handleNav = () => {
+    setNav(!nav);
+    if (!nav) {
+      setTimeout(() => {
+        setNav(false);
+      }, 4000);
+    }
+  };
+  const handlefirstDropdownToggle = () => {
+    setfirstDropdownVisible(!firstDropdownVisible);
+  };
+  const handlesecondDropdownToggle = () => {
+    setsecondDropdownVisible(!secondDropdownVisible);
+  };
+  const handleAppointmentDropdownToggle = () => {
+    setAppointmentDropdownVisible(!appointmentDropdownVisible);
+  };
+
+  const handleClickOutside = (event) => {
+    if (
+      firstDropdownRef.current &&
+      !firstDropdownRef.current.contains(event.target)
+    ) {
+      setfirstDropdownVisible(false);
+    }
+    if (
+      secondDropdownRef.current &&
+      !secondDropdownRef.current.contains(event.target)
+    ) {
+      setsecondDropdownVisible(false);
+    }
+    if (
+      appointmentDropdownRef.current &&
+      !appointmentDropdownRef.current.contains(event.target)
+    ) {
+      setAppointmentDropdownVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success">
-      <div className="container-fluid">
-        <NavLink className="navbar-brand" to="/">CarCar</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Sales Information
-            </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="employee/add/">Add Sales Person</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="salesrecord/add/">Create a Sale Record</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="salesrecord/">List of All Sales</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="salesemployee/">List Sales History by Sales Person</NavLink>
-                </ul>
-            </li>
-            <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Customer Information
-            </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="customer/add/">Add a Customer</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="/customers/">Customer List</NavLink>
-                </ul>
+    <div className="lg:px-32 md:px-16 sm:px-6 px-4 sticky top-0 z-10 w-full h-28 flex justify-between items-center bg-gray-900 text-gray-200">
+      <Link
+        to="/"
+        className="ml-16 animate-bounce animate-once text-5xl font-bold hover:text-green-200"
+      >
+        <FaHome />
+      </Link>
+      <ul className="md:flex hidden">
+        <li className="p-4 mr-4 font-bold text-xl relative">
+          <button
+            className="hover:text-green-200 focus:text-green-200 flex items-center"
+            onClick={handlefirstDropdownToggle}
+          >
+            Sales & Persons
+            <div className="ml-2">
+              <AiOutlineDollarCircle />
+            </div>
+          </button>
+          {firstDropdownVisible && (
+            <ul
+              className="py-3 absolute text-center w-full left-1/2 transform -translate-x-1/2 border-t-2 border-gray-600 top-full mt-[18px] bg-gray-900 text-gray-200"
+              ref={firstDropdownRef}
+            >
+              <li className="p-2 font-bold text-base">
+                <Link to="/salesrecord" onClick={handleNav} className="hover:text-green-200">
+                  Sales Record
+                </Link>
               </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Appointments</a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="/appointments">Appointments List</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="appointments/new/">Create new Appointment</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="/servicehistory">Service History</NavLink>
-              </ul>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Technicians</a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="/technicians">Technicians List</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="technicians/new/">Create new Technician</NavLink>
-              </ul>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manufacturers</a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="/manufacturers">Manufacturers List</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="manufacturers/new/">Create new Manufacturer</NavLink>
-              </ul>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Automobile Models</a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="/models">Automobile Models List</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="models/new/">Create new Automobile Model</NavLink>
-              </ul>
-            </li>
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Automobiles</a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <NavLink className="dropdown-item" aria-current="page" to="/autos">Automobiles List</NavLink>
-                <NavLink className="dropdown-item" aria-current="page" to="autos/new/">Create new Automobile</NavLink>
-              </ul>
-            </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/saleshistory" onClick={handleNav} className="hover:text-green-200">
+                  Sales History
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/technicians" onClick={handleNav} className="hover:text-green-200">
+                  Technician
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/salesperson" onClick={handleNav} className="hover:text-green-200">
+                  Employee
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/customer" onClick={handleNav} className="hover:text-green-200">
+                  Customer
+                </Link>
+              </li>
+            </ul>
+          )}
+        </li>
+        <li className="p-4 mr-4 font-bold text-xl relative">
+          <button
+            className="hover:text-green-200 flex items-center"
+            onClick={handlesecondDropdownToggle}
+          >
+            Vehicles
+            <div className="ml-2">
+              <BiCar />
+            </div>
+          </button>
+          {secondDropdownVisible && (
+            <ul
+              className="py-3 absolute text-center w-full left-1/2 transform -translate-x-1/2 border-t-2 border-gray-600 top-full mt-[18px] bg-gray-900 text-gray-200"
+              ref={secondDropdownRef}
+            >
+              <li className="p-2 font-semibold text-base">
+                <Link to="/manufacturers" onClick={handleNav} className="hover:text-green-200">
+                  Manufacturers
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/models" onClick={handleNav} className="hover:text-green-200">
+                    Models
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/autos" onClick={handleNav} className="hover:text-green-200">
+                    Automobiles
+                </Link>
+              </li>
+            </ul>
+          )}
+        </li>
+        <li className="p-4 mr-4 font-bold text-xl relative">
+          <button
+            className="hover:text-green-200 focus:text-green-200 flex items-center"
+            onClick={handleAppointmentDropdownToggle}
+          >
+            Appointment
+            <div className="ml-2">
+              <AiOutlineSchedule />
+            </div>
+          </button>
+          {appointmentDropdownVisible && (
+            <ul
+              className="py-3 absolute text-center w-full left-1/2 transform -translate-x-1/2 border-t-2 border-gray-600 top-full mt-[18px] bg-gray-900 text-gray-200"
+              ref={appointmentDropdownRef}
+            >
+              <li className="p-2 font-semibold text-base">
+                <Link to="/appointments" onClick={handleNav} className="hover:text-green-200">
+                  Active Appointments
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/servicehistory" onClick={handleNav} className="hover:text-green-200">
+                  Appointment History
+                </Link>
+              </li>
+            </ul>
+          )}
+        </li>
+      </ul>
+      <div onClick={handleNav} className="md:hidden pt-2 flex justify-end pr-1">
+          <AiOutlineMenu size={30} />
+        </div>
+        <div
+          className={
+            nav
+              ? "fixed top-0 right-0 lg:w-[20%] md:w-[30%] sm:w-[30%] w-[30%] h-full bg-black text-gray-200 ease-in-out duration-500 transition-all"
+              : "hidden lg:hidden"
+          }
+        >
+          <div onClick={handleNav} className="flex justify-end pr-4 pt-7">
+            <AiOutlineClose size={30} />
+          </div>
+          <ul className="bg-black text-gray-200 h-screen pl-4">
+              <li className="p-2 font-bold text-base">
+                <Link to="/salesrecord" onClick={handleNav} className="hover:text-green-200">
+                  Sales Record
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/saleshistory" onClick={handleNav} className="hover:text-green-200">
+                  Sales History
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/technicians" onClick={handleNav} className="hover:text-green-200">
+                  Technician
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/salesperson" onClick={handleNav} className="hover:text-green-200">
+                  Employee
+                </Link>
+              </li>
+              <li className="p-2 font-bold text-base">
+                <Link to="/customer" onClick={handleNav} className="hover:text-green-200">
+                  Customer
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/manufacturers" onClick={handleNav} className="hover:text-green-200">
+                  Manufacturers
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/models" onClick={handleNav} className="hover:text-green-200">
+                    Models
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/autos" onClick={handleNav} className="hover:text-green-200">
+                    Automobiles
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/appointments" onClick={handleNav} className="hover:text-green-200">
+                  Active Appointments
+                </Link>
+              </li>
+              <li className="p-2 font-semibold text-base">
+                <Link to="/servicehistory" onClick={handleNav} className="hover:text-green-200">
+                  Appointment History
+                </Link>
+              </li>
           </ul>
         </div>
-      </div>
-    </nav>
-  )
+    </div>
+  );
 }
 
 export default Nav;
