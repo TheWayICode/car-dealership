@@ -64,7 +64,7 @@ export default function CustomerList() {
   };
 
   return (
-    <>
+    <div className="min-h-screen overflow-hidden">
       <div className="pt-16">
         <table className="text-center justify-center table table-striped table-hover">
           <thead>
@@ -157,6 +157,6 @@ export default function CustomerList() {
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 }

@@ -54,7 +54,7 @@ function ManufacturerList() {
   };
 
   return (
-    <>
+    <div className="min-h-screen overflow-hidden">
       <div className="pt-16">
         <div className="font-semibold text-center grid grid-cols-4 gap-6 justify-center lg:px-32 md:px-24 sm:px-16 px-8">
           {manufacturers.map((manufacturer) => (
@@ -112,7 +112,7 @@ function ManufacturerList() {
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 }
 export default ManufacturerList;

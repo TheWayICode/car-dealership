@@ -79,7 +79,7 @@ function VehicleModelList() {
   };
 
   return (
-    <>
+    <div className="min-h-screen overflow-hidden">
     <div className="pt-16">
       <div className="px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 justify-center">
         {models.map((model) => (
@@ -100,7 +100,7 @@ function VehicleModelList() {
         ))}
       </div>
     </div>
-      <div className="pt-32 text-center">
+      <div className="pt-32 pb-16 text-center">
         {showForm ? (
           <div className="pb-16">
             <button
@@ -178,7 +178,7 @@ function VehicleModelList() {
           </button>
         )}
       </div>
-    </>
+    </div>
   );
 }
 export default VehicleModelList;

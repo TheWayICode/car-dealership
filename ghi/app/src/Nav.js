@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { BiCar } from "react-icons/bi";
-import { AiOutlineSchedule, AiOutlineDollarCircle, AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
+import { AiOutlineSchedule, AiOutlineDollarCircle, AiOutlineMenu } from "react-icons/ai";
 
 function Nav() {
-  const [nav, setNav] = useState(false);
+  const [setNav] = useState(false);
   const [firstDropdownVisible, setfirstDropdownVisible] = useState(false);
   const [secondDropdownVisible, setsecondDropdownVisible] = useState(false);
   const [appointmentDropdownVisible, setAppointmentDropdownVisible] = useState(false);
@@ -14,24 +14,27 @@ function Nav() {
   const appointmentDropdownRef = useRef(null);
 
   const handleNav = () => {
-    setNav(!nav);
-    if (!nav) {
-      setTimeout(() => {
-        setNav(false);
-      }, 4000);
-    }
+    setNav((prevNav) => !prevNav);
   };
+
   const handlefirstDropdownToggle = () => {
     setfirstDropdownVisible(!firstDropdownVisible);
   };
+
   const handlesecondDropdownToggle = () => {
     setsecondDropdownVisible(!secondDropdownVisible);
   };
+
   const handleAppointmentDropdownToggle = () => {
     setAppointmentDropdownVisible(!appointmentDropdownVisible);
   };
 
   const handleClickOutside = (event) => {
+    const isHamburgerButton = event.target.closest(".hamburger-button");
+    if (isHamburgerButton) {
+      return;
+    }
+
     if (
       firstDropdownRef.current &&
       !firstDropdownRef.current.contains(event.target)
@@ -60,10 +63,10 @@ function Nav() {
   }, []);
 
   return (
-    <div className="lg:px-32 md:px-16 sm:px-6 px-4 sticky top-0 z-10 w-full h-28 flex justify-between items-center bg-gray-900 text-gray-200">
+    <div className="lg:px-32 md:px-16 sm:px-6 px-4 sticky top-0 z-10 w-full h-28 flex justify-between items-center bg-gray-900 text-gray-200 transition-all">
       <Link
         to="/"
-        className="ml-16 animate-bounce animate-once text-5xl font-bold hover:text-green-200"
+        className="ml-16 animate-bounce animate-once text-5xl font-bold hover:text-green-200 hover:scale-105 duration-300 transition"
       >
         <FaHome />
       </Link>
@@ -99,7 +102,7 @@ function Nav() {
                 </Link>
               </li>
               <li className="p-2 font-bold text-base">
-                <Link to="/salesperson" onClick={handleNav} className="hover:text-green-200">
+                <Link to="/employee" onClick={handleNav} className="hover:text-green-200">
                   Employee
                 </Link>
               </li>
@@ -133,12 +136,12 @@ function Nav() {
               </li>
               <li className="p-2 font-semibold text-base">
                 <Link to="/models" onClick={handleNav} className="hover:text-green-200">
-                    Models
+                  Models
                 </Link>
               </li>
               <li className="p-2 font-semibold text-base">
                 <Link to="/autos" onClick={handleNav} className="hover:text-green-200">
-                    Automobiles
+                  Automobiles
                 </Link>
               </li>
             </ul>
@@ -173,72 +176,13 @@ function Nav() {
           )}
         </li>
       </ul>
-      <div onClick={handleNav} className="md:hidden pt-2 flex justify-end pr-1">
-          <AiOutlineMenu size={30} />
-        </div>
-        <div
-          className={
-            nav
-              ? "fixed top-0 right-0 lg:w-[20%] md:w-[30%] sm:w-[30%] w-[30%] h-full bg-black text-gray-200 ease-in-out duration-500 transition-all"
-              : "hidden lg:hidden"
-          }
-        >
-          <div onClick={handleNav} className="flex justify-end pr-4 pt-7">
-            <AiOutlineClose size={30} />
-          </div>
-          <ul className="bg-black text-gray-200 h-screen pl-4">
-              <li className="p-2 font-bold text-base">
-                <Link to="/salesrecord" onClick={handleNav} className="hover:text-green-200">
-                  Sales Record
-                </Link>
-              </li>
-              <li className="p-2 font-bold text-base">
-                <Link to="/saleshistory" onClick={handleNav} className="hover:text-green-200">
-                  Sales History
-                </Link>
-              </li>
-              <li className="p-2 font-bold text-base">
-                <Link to="/technicians" onClick={handleNav} className="hover:text-green-200">
-                  Technician
-                </Link>
-              </li>
-              <li className="p-2 font-bold text-base">
-                <Link to="/salesperson" onClick={handleNav} className="hover:text-green-200">
-                  Employee
-                </Link>
-              </li>
-              <li className="p-2 font-bold text-base">
-                <Link to="/customer" onClick={handleNav} className="hover:text-green-200">
-                  Customer
-                </Link>
-              </li>
-              <li className="p-2 font-semibold text-base">
-                <Link to="/manufacturers" onClick={handleNav} className="hover:text-green-200">
-                  Manufacturers
-                </Link>
-              </li>
-              <li className="p-2 font-semibold text-base">
-                <Link to="/models" onClick={handleNav} className="hover:text-green-200">
-                    Models
-                </Link>
-              </li>
-              <li className="p-2 font-semibold text-base">
-                <Link to="/autos" onClick={handleNav} className="hover:text-green-200">
-                    Automobiles
-                </Link>
-              </li>
-              <li className="p-2 font-semibold text-base">
-                <Link to="/appointments" onClick={handleNav} className="hover:text-green-200">
-                  Active Appointments
-                </Link>
-              </li>
-              <li className="p-2 font-semibold text-base">
-                <Link to="/servicehistory" onClick={handleNav} className="hover:text-green-200">
-                  Appointment History
-                </Link>
-              </li>
-          </ul>
-        </div>
+      <div
+        onClick={handleNav}
+        className="md:hidden pt-2 flex justify-end pr-1 hamburger-button"
+      >
+        <AiOutlineMenu size={30} />
+      </div>
+
     </div>
   );
 }

@@ -86,7 +86,7 @@ function AutomobileList() {
         }
 
     return (
-        <>
+        <div className='min-h-screen overflow-hidden'>
             <div className='pt-16'>
                 <table className="text-center justify-center table table-striped">
                     <thead>
@@ -166,7 +166,7 @@ function AutomobileList() {
                     </button>
                 )}
             </div>
-        </>
+        </div>
 
     )
 }

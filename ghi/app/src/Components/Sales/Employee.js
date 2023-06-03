@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-export default function SalesPersonForm() {
+export default function Employee() {
     const [name, setName] = useState('');
     const [employeeNumber, setEmployeeNumber] = useState('');
 
@@ -34,7 +34,7 @@ export default function SalesPersonForm() {
     }
 
     return (
-        <div className="container pt-16">
+        <div className="container pt-16 min-h-screen overflow-hidden">
             <div className="row">
                 <div className="offset-3 col-6">
                     <div className="shadow p-4 mt-4">

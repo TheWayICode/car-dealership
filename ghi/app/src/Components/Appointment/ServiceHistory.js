@@ -20,7 +20,7 @@ function ServiceHistory() {
     }, []);
 
     return (
-        <div className='text-center'>
+        <div className='text-center min-h-screen overflow-hidden'>
             <h3 className="pt-16 pb-4 text-center text-2xl font-bold">Service History</h3>
             <div className="px-8 input-group pb-8">
                 <input onChange={handleSearchChange} value={search} type="search" className="form-control rounded" placeholder="Search VIN number" aria-label="Search" aria-describedby="search-addon" />

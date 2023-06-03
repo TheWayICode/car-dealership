@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Nav from './Nav';
 import Footer from './Footer';
 import MainPage from './MainPage';
-import SalesPersonForm from './Components/Sales/SalesPersonForm';
 import CustomerList from './Components/Customer/CustomerList';
 import SalesRecordList from './Components/Sales/SalesRecordList';
 import SalesHistory from './Components/Sales/SalesRecordHistory';
@@ -14,6 +13,7 @@ import ManufacturerList from './Components/Manufacturer/ManufacturerList';
 import VehicleModelList from './Components/VehicleModel/VehicleModelList';
 import AutomobileList from './Components/Automobile/AutomobileList';
 import ServiceHistory from './Components/Appointment/ServiceHistory';
+import Employee from './Components/Sales/Employee';
 
 
 function ScrollToTopOnRouteChange() {
@@ -37,8 +37,8 @@ function App() {
         <Route path="servicehistory" element={<ServiceHistory/>}/>
         <Route path="manufacturers" element={<ManufacturerList />} />
         <Route path="customer" element={<CustomerList />} />
+        <Route path="employee" element={<Employee />} />
         <Route path="saleshistory" element={<SalesHistory />} />
-        <Route path="salesperson" element={<SalesPersonForm />} />
         <Route path="salesrecord" element={<SalesRecordList />} />
         <Route path="technicians" element={<TechnicianList />} />
         <Route path="models" element={<VehicleModelList />} />

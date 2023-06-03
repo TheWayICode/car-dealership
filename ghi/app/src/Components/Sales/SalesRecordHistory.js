@@ -35,7 +35,7 @@ export default function SalesRecordHistory() {
   }
 
   return (
-    <div>
+    <div className="min-h-screen overflow-hidden">
       <div className="pt-16 pb-8 px-8">
         <select
           className="form-select"
